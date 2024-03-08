@@ -11,6 +11,7 @@ part "form.dart";
 part "field.dart";
 part "validation.dart";
 part "validation_required.dart";
+part "validation_character_length.dart";
 part 'property.dart';
 
 part 'widget_field.dart';

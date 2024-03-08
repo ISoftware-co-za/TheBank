@@ -1,0 +1,6 @@
+{
+  "country" : "ZM",
+
+  "interAccountReferenceRequired": false,
+  "interAccountReferenceMaxLength": 15
+}

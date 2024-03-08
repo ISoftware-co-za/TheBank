@@ -1,12 +1,16 @@
-import 'package:bank/ui/inter_account/page_2_review.dart';
+import 'package:bank/service/bank_service.dart';
+import 'package:bank/ui/route_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/model.dart';
 import '../../ui-toolkit/ui_toolkit.dart' as ui_toolkit;
 import 'inter_account_transaction_data.dart';
+import 'package:bank/ui/inter_account/page_2_review.dart';
 
 class PageInstruction extends StatefulWidget {
-  const PageInstruction({super.key});
+  final RouteData<InterAccountTransactionData> routeData;
+
+  const PageInstruction({required this.routeData, super.key});
 
   @override
   State<PageInstruction> createState() => _PageInstructionState();
@@ -15,7 +19,60 @@ class PageInstruction extends StatefulWidget {
 class _PageInstructionState extends State<PageInstruction> {
   @override
   void initState() {
-    _portfolio = Portfolio();
+    super.initState();
+    _setupForm(widget.routeData.configuration);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _portfolio = Portfolio(BankService());
+    return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 230, 230, 230),
+        appBar: AppBar(title: const Text("Inter-account")),
+        body: SafeArea(
+          child: FutureBuilder<List<Account>>(
+            future: _portfolio.listAccounts(),
+            builder: (context, accounts) {
+              if (accounts.hasData) {
+                return SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ui_toolkit.WidgetAccountSelection(field: _fromAccount, accounts: accounts.data!),
+                          SizedBox(height: _sizeBoxHeight),
+                          ui_toolkit.WidgetAccountSelection(field: _toAccount, accounts: accounts.data!),
+                          SizedBox(height: _sizeBoxHeight),
+                          ui_toolkit.WidgetField(field: _amount),
+                          SizedBox(height: _sizeBoxHeight),
+                          ui_toolkit.WidgetField(field: _reference),
+                          SizedBox(height: 2 * _sizeBoxHeight),
+                          ElevatedButton(
+                              onPressed: () {
+                                _continue(context);
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 220, 60, 60)),
+                                  foregroundColor: MaterialStateProperty.all(Colors.white)),
+                              child: const Text("Continue")),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const Placeholder();
+              }
+            }
+          )
+        ));
+  }
+
+  void _setupForm(Configuration configuration) {
+
     _fromAccount = ui_toolkit.Field("From account", null);
     _fromAccount.addValidation(ui_toolkit.ValidationRequired("From account is required"));
 
@@ -26,61 +83,31 @@ class _PageInstructionState extends State<PageInstruction> {
     _amount.addValidation(ui_toolkit.ValidationRequired("Amount is required"));
 
     _reference = ui_toolkit.Field("Reference", null);
+    if (configuration.interAccountReferenceRequired) {
+      _reference.addValidation(ui_toolkit.ValidationRequired("Reference is required"));
+    }
+    _reference.addValidation(ui_toolkit.ValidationCharacterLength(
+        maximumCharacters: configuration.interAccountReferenceMaxLength,
+        maximumCharactersMessage:  "Reference is too long"));
 
     _form = ui_toolkit.Form();
     _form.add(_fromAccount);
     _form.add(_toAccount);
     _form.add(_amount);
     _form.add(_reference);
-
-    super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 230, 230, 230),
-        appBar: AppBar(title: const Text("Inter-account")),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ui_toolkit.WidgetAccountSelection(field: _fromAccount, accounts: _portfolio.listAccounts()),
-                    SizedBox(height: _sizeBoxHeight),
-                    ui_toolkit.WidgetAccountSelection(field: _toAccount, accounts: _portfolio.listAccounts()),
-                    SizedBox(height: _sizeBoxHeight),
-                    ui_toolkit.WidgetField(field: _amount),
-                    SizedBox(height: _sizeBoxHeight),
-                    ui_toolkit.WidgetField(field: _reference),
-                    SizedBox(height: 2 * _sizeBoxHeight),
-                    ElevatedButton(
-                        onPressed: () {
-                          _formKey.currentState!.validate();
-                          if (_form.validate()) {
-                            InterAccountTransactionData transactionData = InterAccountTransactionData(
-                                _fromAccount.value.value!,
-                                _toAccount.value.value!,
-                                _amount.value.value!,
-                                _reference.value.value!);
-                            Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => PageReview(data: transactionData)));
-                          }
-                        },
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 220, 60, 60)),
-                            foregroundColor: MaterialStateProperty.all(Colors.white)),
-                        child: const Text("Continue")),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ));
+  void _continue(BuildContext context) {
+    _formKey.currentState!.validate();
+    if (_form.validate()) {
+      widget.routeData.data =InterAccountTransactionData(
+          _fromAccount.value.value!,
+          _toAccount.value.value!,
+          _amount.value.value!,
+          _reference.value.value);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PageReview(routeData: widget.routeData)));
+    }
   }
 
   final _formKey = GlobalKey<FormState>();

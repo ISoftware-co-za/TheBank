@@ -1,11 +1,17 @@
 part of "model.dart";
 
 class Portfolio {
-  List<Account> listAccounts() {
-    return [
-      Account("1000000001234", "Checking", 100.0),
-      Account("2000000005678", "Savings", 200.0),
-      Account("3000000009012", "Investment", 300.0),
-    ];
+
+  Portfolio(IBankService service) : _service = service;
+
+  Future<List<Account>> listAccounts() async {
+    Map<String, dynamic> response = await _service.listAccounts();
+    List<Account> accounts = [];
+    for(Map<String, dynamic> accountResponse in response["accounts"]) {
+      accounts.add(Account.fromJson(accountResponse));
+    }
+    return accounts;
   }
+
+  final IBankService _service;
 }

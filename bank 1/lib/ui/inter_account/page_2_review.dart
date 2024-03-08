@@ -1,11 +1,14 @@
+import 'package:bank/model/model.dart';
+import 'package:bank/service/bank_service.dart';
 import 'package:bank/ui/inter_account/page_3_success.dart';
+import 'package:bank/ui/route_data.dart';
 import 'package:flutter/material.dart';
 import 'package:bank/ui-toolkit/ui_toolkit.dart';
 import 'package:bank/ui/inter_account/inter_account_transaction_data.dart';
 
 class PageReview extends StatefulWidget {
-  final InterAccountTransactionData data;
-  const PageReview({required this.data, super.key});
+  final RouteData<InterAccountTransactionData> routeData;
+  const PageReview({required this.routeData, super.key});
 
   @override
   State<PageReview> createState() => _PageReviewState();
@@ -17,7 +20,7 @@ class _PageReviewState extends State<PageReview> {
     List<Widget> columnChildren = [];
     _displayAmount(columnChildren);
     _displayTransactionData(columnChildren);
-    _displayContinueButton(columnChildren);
+    _displayContinueButton(context, widget.routeData.service, columnChildren);
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 230, 230, 230),
@@ -35,7 +38,7 @@ class _PageReviewState extends State<PageReview> {
       color: Colors.red,
       child: Center(
         child: Text(
-          widget.data.amount,
+          widget.routeData.data!.amount,
           style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
         ),
       ),
@@ -44,21 +47,22 @@ class _PageReviewState extends State<PageReview> {
   }
 
   void _displayTransactionData(List<Widget> widgets) {
-    widgets.add(WidgetLabelValue(label: "From", value: widget.data.fromAccountNumber));
-    widgets.add(WidgetLabelValue(label: "To", value: widget.data.toAccountNumber));
-    if (widget.data.reference != null) {
-      widgets.add(WidgetLabelValue(label: "Reference", value: widget.data.reference!));
+    widgets.add(WidgetLabelValue(label: "From", value: widget.routeData.data!.fromAccountNumber));
+    widgets.add(WidgetLabelValue(label: "To", value: widget.routeData.data!.toAccountNumber));
+    if (widget.routeData.data!.reference != null) {
+      widgets.add(WidgetLabelValue(label: "Reference", value: widget.routeData.data!.reference!));
     }
     widgets.add(const SizedBox(height: 26,));
   }
 
-  void _displayContinueButton(List<Widget> widgets) {
+  void _displayContinueButton(BuildContext context, IBankService service, List<Widget> widgets) {
     widgets.add(Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
-          onPressed: () {
-            // TODO: call the service
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PageSuccess(data: widget.data)));
+          onPressed: () async {
+            await _performTransfer();
+            if (!context.mounted) return;
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PageSuccess(data: widget.routeData.data!)));
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 220, 60, 60)),
@@ -66,5 +70,14 @@ class _PageReviewState extends State<PageReview> {
           ),
           child: const Text("Transfer")),
     ));
+  }
+
+  Future<void> _performTransfer() async {
+    var interAccountTransfer = TransferInterAccount();
+    widget.routeData.data!.transactionIdentifier = await interAccountTransfer.perform(
+        widget.routeData.data!.fromAccountNumber,
+        widget.routeData.data!.toAccountNumber,
+        widget.routeData.data!.amount,
+        widget.routeData.data!.reference);
   }
 }
