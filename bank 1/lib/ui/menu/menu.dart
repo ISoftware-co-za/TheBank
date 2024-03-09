@@ -1,6 +1,6 @@
 import 'package:bank/bank_service_provider.dart';
 import 'package:bank/configuration_provider.dart';
-import 'package:bank/ui/inter_account/inter_account_transaction_data.dart';
+import 'package:bank/ui/inter_account/inter_account_flow_data.dart';
 import 'package:bank/ui/route_data.dart';
 import 'package:flutter/material.dart';
 import 'package:bank/ui/inter_account/page_1_instruction.dart' as inter_account;
@@ -39,7 +39,7 @@ class Menu extends StatelessWidget {
       title: const Text("Inter account transfer"),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
-        RouteData<InterAccountTransactionData> routeData = RouteData(
+        RouteData<InterAccountFlowData> routeData = RouteData(
             ConfigurationProvider.of(context)!.configuration,
             BankServiceProvider.of(context)!.service);
         Navigator.push(context, MaterialPageRoute(builder: (context) => inter_account.PageInstruction(routeData: routeData)));

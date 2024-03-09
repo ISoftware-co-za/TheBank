@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../model/model.dart';
 import '../../ui-toolkit/ui_toolkit.dart' as ui_toolkit;
-import 'inter_account_transaction_data.dart';
+import 'inter_account_flow_data.dart';
 import 'package:bank/ui/inter_account/page_2_review.dart';
 
 class PageInstruction extends StatefulWidget {
-  final RouteData<InterAccountTransactionData> routeData;
+  final RouteData<InterAccountFlowData> routeData;
 
   const PageInstruction({required this.routeData, super.key});
 
@@ -27,8 +27,8 @@ class _PageInstructionState extends State<PageInstruction> {
   Widget build(BuildContext context) {
     _portfolio = Portfolio(BankService());
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 230, 230, 230),
-        appBar: AppBar(title: const Text("Inter-account")),
+        backgroundColor: const Color.fromARGB(255, 248, 245, 245),
+        appBar: AppBar(title: const Text("Inter account")),
         body: SafeArea(
           child: FutureBuilder<List<Account>>(
             future: _portfolio.listAccounts(),
@@ -83,12 +83,16 @@ class _PageInstructionState extends State<PageInstruction> {
     _amount.addValidation(ui_toolkit.ValidationRequired("Amount is required"));
 
     _reference = ui_toolkit.Field("Reference", null);
-    if (configuration.interAccountReferenceRequired) {
+    if (configuration.isBW()) {
       _reference.addValidation(ui_toolkit.ValidationRequired("Reference is required"));
+      _reference.addValidation(ui_toolkit.ValidationCharacterLength(
+          maximumCharacters: 20,
+          maximumCharactersMessage:  "Reference is too long"));
+    } else if (configuration.isZM()) {
+      _reference.addValidation(ui_toolkit.ValidationCharacterLength(
+          maximumCharacters: 15,
+          maximumCharactersMessage:  "Reference is too long"));
     }
-    _reference.addValidation(ui_toolkit.ValidationCharacterLength(
-        maximumCharacters: configuration.interAccountReferenceMaxLength,
-        maximumCharactersMessage:  "Reference is too long"));
 
     _form = ui_toolkit.Form();
     _form.add(_fromAccount);
@@ -100,7 +104,7 @@ class _PageInstructionState extends State<PageInstruction> {
   void _continue(BuildContext context) {
     _formKey.currentState!.validate();
     if (_form.validate()) {
-      widget.routeData.data =InterAccountTransactionData(
+      widget.routeData.data =InterAccountFlowData(
           _fromAccount.value.value!,
           _toAccount.value.value!,
           _amount.value.value!,

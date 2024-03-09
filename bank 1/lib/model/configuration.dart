@@ -2,10 +2,11 @@ part of "model.dart";
 
 class Configuration {
   final String country;
-  final bool interAccountReferenceRequired;
-  final int interAccountReferenceMaxLength;
 
-  Configuration(this.country, this.interAccountReferenceRequired, this.interAccountReferenceMaxLength);
+  bool isBW() => country == "BW";
+  bool isZM() => country == "ZM";
+
+  Configuration(this.country);
 
   static Future<Configuration> load(IBankService service) async {
     Map<String, dynamic> response = await service.loadConfiguration();
@@ -13,7 +14,6 @@ class Configuration {
   }
 
   factory Configuration.fromJson(Map<String, dynamic> json) {
-    return Configuration(
-        json["country"], json["interAccountReferenceRequired"], json["interAccountReferenceMaxLength"]);
+    return Configuration(json["country"]);
   }
 }
