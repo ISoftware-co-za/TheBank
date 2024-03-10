@@ -54,6 +54,9 @@ class _PageInstructionState extends State<PageInstruction> {
                             );
                           }),
                     );
+                  } else if (snapshot.hasError) {
+                    debugPrint(snapshot.error.toString());
+                    return const Placeholder();
                   } else {
                     return const Placeholder();
                   }

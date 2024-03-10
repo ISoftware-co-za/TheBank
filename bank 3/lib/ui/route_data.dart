@@ -1,8 +1,9 @@
 import 'package:bank/model/model.dart';
 import 'package:bank/service/bank_service.dart';
-import 'package:bank/ui/flowCustomisationBW.dart';
-import 'package:bank/ui/flowCustomisationZM.dart';
-import 'package:bank/ui/iFlowCustomisation.dart';
+
+import 'iFlowCustomisation.dart';
+import 'flowCustomisationBW.dart';
+import 'flowCustomisationZM.dart';
 
 class RouteData<T> {
   final Configuration configuration;

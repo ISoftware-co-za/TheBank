@@ -49,7 +49,9 @@ class InstructionForm {
   }
 
   void setBank(ListItemNameValue selectedBank) {
-    toBranchTextController!.text = "";
-    toBranch!.value.value = null;
+    if (toBranch != null) {
+      toBranchTextController!.text = "";
+      toBranch!.value.value = null;
+    }
   }
 }
