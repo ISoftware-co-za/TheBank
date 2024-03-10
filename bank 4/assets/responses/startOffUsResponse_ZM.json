@@ -1,0 +1,24 @@
+{
+  "banks" : [
+    {
+      "name" : "AB Bank",
+      "id": "10",
+      "branches" : null
+    },
+    {
+      "name" : "Atlas Mara Bank",
+      "id": "20",
+      "branches" : null
+    },
+    {
+      "name" : "Citi Bank",
+      "id": "30",
+      "branches" : null
+    },
+    {
+      "name" : "Ecobank",
+      "id": "40",
+      "branches" : null
+    }
+  ]
+}
