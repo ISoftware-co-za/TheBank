@@ -2,12 +2,14 @@ part of 'ui_toolkit.dart';
 
 class Field extends ChangeNotifier {
 
+  final String key;
+  final FormItemSource source;
   final String label;
   late final Property<Object> value;
   late final Property<bool> isValid;
   late final Property<String?> invalidMessage;
 
-  Field(this.label, String? value) {
+  Field(this.key, this.source, this.label, String? value) {
     this.value = Property(null, this);
     isValid = Property(true, this);
     invalidMessage = Property("", this);

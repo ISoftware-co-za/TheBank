@@ -1,10 +1,9 @@
-import 'package:bank/ui/interbank/inter_bank_flow_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PageSuccess extends StatelessWidget {
-  final InterBankFlowData data;
-  const PageSuccess({required this.data, super.key});
+  final String transactionReference;
+  const PageSuccess({required this.transactionReference, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class PageSuccess extends StatelessWidget {
   }
 
   void _showTransactionIdentifier(List<Widget> widgets) {
-    widgets.add(Text(data.transactionIdentifier!, textAlign: TextAlign.center));
+    widgets.add(Text(transactionReference, textAlign: TextAlign.center));
     widgets.add(const SizedBox(height: 20));
   }
 

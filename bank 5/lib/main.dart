@@ -1,7 +1,11 @@
-import 'package:bank/configuration_provider.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bank/configuration_provider.dart';
 import 'package:bank/bank_service_provider.dart';
 import 'package:bank/service/bank_service.dart';
+import 'package:bank/model/model.dart';
+import 'package:bank/ui/session_state_provider.dart';
+import 'package:bank/ui/session_state.dart';
 import 'package:bank/ui/menu/menu.dart';
 
 import 'model/model.dart';
@@ -36,9 +40,23 @@ class MyApp extends StatelessWidget {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     return ConfigurationProvider(
-                      configuration: snapshot.data!,
-                      child: const Menu(),
-                    );
+                        configuration: snapshot.data!,
+                        child: FutureBuilder<LoginResult>(
+                            future: Login.login(BankServiceProvider.of(context)!.service, "username", "password"),
+                            builder: (BuildContext context, AsyncSnapshot<LoginResult> snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else if (snapshot.hasData) {
+                                return SessionStateProvider(
+                                  state: SessionState(snapshot.data!.portfolio, snapshot.data!.banks),
+                                  child: const Menu(),
+                                );
+                              } else {
+                                return const Placeholder();
+                              }
+                            }));
                   }
                 },
               );

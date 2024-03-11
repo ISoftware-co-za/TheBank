@@ -8,7 +8,7 @@ class Bank {
   Bank(this.name, this.id, this.branches);
 
   @visibleForTesting
-  factory Bank.fromJson(Map<String, dynamic> json) {
+  factory Bank.fromJson(Map<String,dynamic> json) {
     List<Branch>? branches;
     if (json["branches"]!= null) {
       branches = (json["branches"] as List).map((branch) => Branch.fromJson(branch)).toList();

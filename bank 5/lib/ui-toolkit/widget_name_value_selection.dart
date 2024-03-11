@@ -13,7 +13,7 @@ class WidgetNameValueSelection extends StatefulWidget {
   final TextEditingController? textController;
 
   WidgetNameValueSelection(
-      {required this.field, required IValuesGenerator valuesGenerator, super.key, this.textController, this.valueSelectedCallback})
+      {required this.field, required IValuesGenerator valuesGenerator, this.textController, this.valueSelectedCallback, super.key})
       : values = valuesGenerator.generate();
 
   @override

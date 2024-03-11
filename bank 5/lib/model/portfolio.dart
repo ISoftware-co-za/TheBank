@@ -2,16 +2,16 @@ part of "model.dart";
 
 class Portfolio {
 
-  Portfolio(IBankService service) : _service = service;
+  List<Account> accounts;
 
-  Future<List<Account>> listAccounts() async {
-    Map<String, dynamic> response = await _service.listAccounts();
+  Portfolio(this.accounts);
+
+  @visibleForTesting
+  factory Portfolio.fromJson(dynamic json) {
     List<Account> accounts = [];
-    for(Map<String, dynamic> accountResponse in response["accounts"]) {
+    for(Map<String, dynamic> accountResponse in json) {
       accounts.add(Account.fromJson(accountResponse));
     }
-    return accounts;
+    return Portfolio(accounts);
   }
-
-  final IBankService _service;
 }

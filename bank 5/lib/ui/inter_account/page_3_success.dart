@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'inter_account_flow_data.dart';
 
 class PageSuccess extends StatelessWidget {
-  final InterAccountFlowData data;
-  const PageSuccess({required this.data, super.key});
+  final String transactionIdentifier;
+  const PageSuccess({required this.transactionIdentifier, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PageSuccess extends StatelessWidget {
   }
 
   void _showTransactionIdentifier(List<Widget> widgets) {
-    widgets.add(Text(data.transactionIdentifier!, textAlign: TextAlign.center));
+    widgets.add(Text(transactionIdentifier, textAlign: TextAlign.center));
     widgets.add(const SizedBox(height: 20));
   }
 
