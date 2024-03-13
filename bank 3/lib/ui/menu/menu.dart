@@ -35,7 +35,6 @@ class Menu extends StatelessWidget {
     ));
   }
 
-  // Extract the ListTile into a method, similar to _addLogo
   void _addInterAccountTransfer(BuildContext context, List<Widget> children) {
     children.add(ListTile(
       leading: const Icon(Icons.arrow_forward),

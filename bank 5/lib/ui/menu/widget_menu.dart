@@ -42,5 +42,4 @@ class WidgetMenu extends StatelessWidget {
     }
     return menuWidgets;
   }
-
 }

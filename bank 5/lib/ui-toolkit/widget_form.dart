@@ -53,40 +53,10 @@ class _WidgetFormState extends State<WidgetForm> {
       } else if (field.source == FormItemSource.accounts) {
         children.add(WidgetAccountSelection(field: field, accounts: widget.routeData.portfolio.accounts));
       } else if (field.source == FormItemSource.banks) {
-        // TODO: ValueGeneratorBank cannot be used here. Same for RouteData.
-        bankField = field;
-        children.add(WidgetNameValueSelection(
-            field: field,
-            valuesGenerator: ValueGeneratorBank(widget.routeData.banks.banks),
-            valueSelectedCallback: (selectedBank) {
-              setState(() {
-                if (branchField != null) {
-                  _branchEditingController.text = "";
-                  branchField.value.value = null;
-                }
-              });
-            }));
+        bankField = _addBankSelection(bankField, field, children, branchField);
       }
-      if (field.source == FormItemSource.branches) {
-        includeSizeBox = false;
-        branchField = field;
-        if (bankField == null) {
-          throw Exception("Cannot have a branch field, without having a bank field defined before it.");
-        }
-        if (bankField.value.value != null) {
-          includeSizeBox = true;
-          List<Branch>? branchesForBank =
-              widget.routeData.banks.listBranchedForBank(bankField.getValueAs<ListItemNameValue>().value);
-          if (branchesForBank == null) {
-            throw Exception(
-                "Cannot find the branches for the bank ${bankField.getValueAs<ListItemNameValue>().toString()}.");
-          }
-          children.add(WidgetNameValueSelection(
-              field: field,
-              valuesGenerator: ValueGeneratorBranch(branchesForBank),
-              textController: _branchEditingController,
-              valueSelectedCallback: null));
-        }
+     else if (field.source == FormItemSource.branches) {
+        includeSizeBox = _addBranchSelection(includeSizeBox, branchField, field, bankField, children);
       }
       if (includeSizeBox) {
         children.add(const SizedBox(height: 24));
@@ -103,6 +73,46 @@ class _WidgetFormState extends State<WidgetForm> {
         child: const Text("Continue")));
 
     return children;
+  }
+
+  Field? _addBankSelection(Field? bankField, Field field, List<Widget> children, Field? branchField) {
+    // TODO: ValueGeneratorBank cannot be used here. Same for RouteData.
+    bankField = field;
+    children.add(WidgetNameValueSelection(
+        field: field,
+        valuesGenerator: ValueGeneratorBank(widget.routeData.banks.banks),
+        valueSelectedCallback: (selectedBank) {
+          setState(() {
+            if (branchField != null) {
+              _branchEditingController.text = "";
+              branchField.value.value = null;
+            }
+          });
+        }));
+    return bankField;
+  }
+
+  bool _addBranchSelection(bool includeSizeBox, Field? branchField, Field field, Field? bankField, List<Widget> children) {
+    includeSizeBox = false;
+    branchField = field;
+    if (bankField == null) {
+      throw Exception("Cannot have a branch field, without having a bank field defined before it.");
+    }
+    if (bankField.value.value != null) {
+      includeSizeBox = true;
+      List<Branch>? branchesForBank =
+          widget.routeData.banks.listBranchedForBank(bankField.getValueAs<ListItemNameValue>().value);
+      if (branchesForBank == null) {
+        throw Exception(
+            "Cannot find the branches for the bank ${bankField.getValueAs<ListItemNameValue>().toString()}.");
+      }
+      children.add(WidgetNameValueSelection(
+          field: field,
+          valuesGenerator: ValueGeneratorBranch(branchesForBank),
+          textController: _branchEditingController,
+          valueSelectedCallback: null));
+    }
+    return includeSizeBox;
   }
 
   void _continue(BuildContext context) {

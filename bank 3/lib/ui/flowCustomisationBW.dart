@@ -5,6 +5,7 @@ import 'package:bank/ui/selector_name_value/list_item_name_value.dart';
 import 'package:flutter/material.dart';
 
 import '../ui-toolkit/ui_toolkit.dart';
+import 'interbank/inter_bank_flow_data.dart';
 import 'interbank/page_1_instruction_form.dart';
 import 'interbank/valueGeneratorBranch.dart';
 
@@ -43,5 +44,10 @@ class FlowCustomisationBW implements IFlowCustomisation {
           field: form.toBranch!, valuesGenerator: ValueGeneratorBranch(branches), textController:  form.toBranchTextController));
       children.add(SizedBox(height: spacing));
     }
+  }
+
+  @override
+  void interbankAddBranchWidgetLabelValue(List<Widget> children, InterBankFlowData data) {
+    children.add(WidgetLabelValue(label: "To branch", value: data.toBranch.toString()));
   }
 }
