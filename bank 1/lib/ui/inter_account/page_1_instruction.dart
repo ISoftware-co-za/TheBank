@@ -105,10 +105,10 @@ class _PageInstructionState extends State<PageInstruction> {
     _formKey.currentState!.validate();
     if (_form.validate()) {
       widget.routeData.data =InterAccountFlowData(
-          _fromAccount.value.value!,
-          _toAccount.value.value!,
-          _amount.value.value!,
-          _reference.value.value);
+          _fromAccount.value!,
+          _toAccount.value!,
+          _amount.value!,
+          _reference.value);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => PageReview(routeData: widget.routeData)));
     }

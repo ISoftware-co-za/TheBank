@@ -14,7 +14,7 @@ class _WidgetSelectionState extends State<WidgetAccountSelection> {
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController(text: widget.field.value.value);
+    _textEditingController = TextEditingController(text: widget.field.value);
   }
 
   @override
@@ -52,15 +52,15 @@ class _WidgetSelectionState extends State<WidgetAccountSelection> {
                   builder: (context) => _buildBottomSheet(context, widget.accounts));
               if (selectedAccount != null) {
                 _textEditingController.text = selectedAccount.number;
-                widget.field.value.value = selectedAccount.number;
+                widget.field.value = selectedAccount.number;
               }
             },
             onChanged: (value) {
-              widget.field.value.value = value;
+              widget.field.value = value;
             },
             validator: (value) {
               widget.field.validateValue();
-              return widget.field.invalidMessage.value;
+              return widget.field.invalidMessage;
             },
           );
         },

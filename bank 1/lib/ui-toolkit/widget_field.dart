@@ -28,11 +28,11 @@ class _WidgetFieldState extends State<WidgetField> {
               ),
             ),
             onChanged: (value) {
-              widget.field.value.value = value;
+              widget.field.value = value;
             },
             validator: (value) {
               widget.field.validateValue();
-              return widget.field.invalidMessage.value;
+              return widget.field.invalidMessage;
             },
           );
         },
