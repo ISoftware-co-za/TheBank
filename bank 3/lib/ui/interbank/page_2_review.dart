@@ -49,9 +49,7 @@ class _PageReviewState extends State<PageReview> {
   void _displayTransactionData(Configuration configuration, List<Widget> widgets) {
     widgets.add(WidgetLabelValue(label: "From", value: widget.routeData.data!.fromAccountNumber));
     widgets.add(WidgetLabelValue(label: "To bank", value: widget.routeData.data!.toBank.toString()));
-    if (configuration.isBW()) {
-      widgets.add(WidgetLabelValue(label: "To branch", value: widget.routeData.data!.toBranch.toString()));
-    }
+    widget.routeData.flowCustomisation.interbankAddBranchWidgetLabelValue(widgets, widget.routeData.data!);
     widgets.add(WidgetLabelValue(label: "Account number", value: widget.routeData.data!.toAccountNumber));
     if (widget.routeData.data!.reference != null) {
       widgets.add(WidgetLabelValue(label: "Reference", value: widget.routeData.data!.reference!));

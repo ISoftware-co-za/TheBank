@@ -7,7 +7,8 @@ import 'package:flutter/services.dart' show Uint8List, rootBundle;
 part "bank_service_interface.dart";
 
 // const String countryCode = "BW";
-const String countryCode = "ZM";
+const String countryCode = "KE";
+// const String countryCode = "ZM";
 
 class BankService implements IBankService {
 

@@ -27,9 +27,7 @@ class _PageReviewState extends State<PageReview> {
         appBar: AppBar(
           title: const Text("Inter-account"),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: columnChildren));
+        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: columnChildren));
   }
 
   void _displayAmount(List<Widget> widgets) {
@@ -43,20 +41,22 @@ class _PageReviewState extends State<PageReview> {
         ),
       ),
     ));
-    widgets.add(const SizedBox(height: 26,));
+    widgets.add(const SizedBox(
+      height: 26,
+    ));
   }
 
   void _displayTransactionData(Configuration configuration, List<Widget> widgets) {
     widgets.add(WidgetLabelValue(label: "From", value: widget.routeData.data!.fromAccountNumber));
     widgets.add(WidgetLabelValue(label: "To bank", value: widget.routeData.data!.toBank.toString()));
-    if (configuration.isBW()) {
-      widgets.add(WidgetLabelValue(label: "To branch", value: widget.routeData.data!.toBranch.toString()));
-    }
+    widget.routeData.flowCustomisation.interbankAddBranchWidgetLabelValue(widgets, widget.routeData.data!);
     widgets.add(WidgetLabelValue(label: "Account number", value: widget.routeData.data!.toAccountNumber));
     if (widget.routeData.data!.reference != null) {
       widgets.add(WidgetLabelValue(label: "Reference", value: widget.routeData.data!.reference!));
     }
-    widgets.add(const SizedBox(height: 26,));
+    widgets.add(const SizedBox(
+      height: 26,
+    ));
   }
 
   void _displayContinueButton(BuildContext context, IBankService service, List<Widget> widgets) {
@@ -66,12 +66,10 @@ class _PageReviewState extends State<PageReview> {
           onPressed: () async {
             await _performTransfer();
             if (!context.mounted) return;
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PageSuccess(data: widget.routeData.data!)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PageSuccess(data: widget.routeData.data!)));
           },
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 220, 60, 60)),
-              foregroundColor: MaterialStateProperty.all(Colors.white)
-          ),
+              backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 220, 60, 60)), foregroundColor: MaterialStateProperty.all(Colors.white)),
           child: const Text("Transfer")),
     ));
   }
@@ -79,9 +77,6 @@ class _PageReviewState extends State<PageReview> {
   Future<void> _performTransfer() async {
     var interAccountTransfer = TransferInterAccount();
     widget.routeData.data!.transactionIdentifier = await interAccountTransfer.perform(
-        widget.routeData.data!.fromAccountNumber,
-        widget.routeData.data!.toAccountNumber,
-        widget.routeData.data!.amount,
-        widget.routeData.data!.reference);
+        widget.routeData.data!.fromAccountNumber, widget.routeData.data!.toAccountNumber, widget.routeData.data!.amount, widget.routeData.data!.reference);
   }
 }

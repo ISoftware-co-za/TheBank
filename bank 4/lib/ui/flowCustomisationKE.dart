@@ -9,11 +9,10 @@ import '../ui-toolkit/ui_toolkit.dart';
 import 'interbank/page_1_instruction_form.dart';
 import 'interbank/valueGeneratorBranch.dart';
 
-class FlowCustomisationBW implements IFlowCustomisation {
+class FlowCustomisationKE implements IFlowCustomisation {
 
   @override
   void interAccountReferenceValidation(Field reference) {
-    reference.addValidation(ValidationRequired("Reference is required"));
     reference.addValidation(ValidationCharacterLength(
         maximumCharacters: 20,
         maximumCharactersMessage:  "Reference is too long"));
@@ -21,7 +20,6 @@ class FlowCustomisationBW implements IFlowCustomisation {
 
   @override
   void interbankReferenceValidation(Field reference) {
-    reference.addValidation(ValidationRequired("Reference is required"));
     reference.addValidation(ValidationCharacterLength(
         maximumCharacters: 20, maximumCharactersMessage: "Reference is too long"));
   }
