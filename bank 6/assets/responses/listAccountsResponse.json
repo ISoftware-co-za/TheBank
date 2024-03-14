@@ -1,0 +1,19 @@
+{
+  "accounts": [
+    {
+      "name" : "Checking",
+      "number": "1000000001234",
+      "balance": 200.00
+    },
+    {
+      "name" : "Savings",
+      "number": "2000000005678",
+      "balance": 1354.67
+    },
+    {
+      "name" : "Term deposit",
+      "number": "3000000009012",
+      "balance": 23000.00
+    }
+  ]
+}
