@@ -8,8 +8,6 @@ import 'package:bank/ui/session_state_provider.dart';
 import 'package:bank/ui/session_state.dart';
 import 'package:bank/ui/menu/menu.dart';
 
-import 'model/model.dart';
-
 void main() {
   runApp(const MyApp());
 }

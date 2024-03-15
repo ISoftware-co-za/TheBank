@@ -46,5 +46,4 @@ class SelectorAccount extends StatelessWidget {
         Text(account.balance.toString(), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800))])
     ];
   }
-
 }

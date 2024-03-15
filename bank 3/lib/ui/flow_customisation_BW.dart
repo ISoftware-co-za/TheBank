@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../ui-toolkit/ui_toolkit.dart';
 import 'interbank/inter_bank_flow_data.dart';
 import 'interbank/page_1_instruction_form.dart';
-import 'interbank/valueGeneratorBranch.dart';
+import 'interbank/value_generator_branch.dart';
 
 class FlowCustomisationBW implements IFlowCustomisation {
 
