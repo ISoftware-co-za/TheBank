@@ -33,7 +33,7 @@ class WidgetMenu extends StatelessWidget {
     for(ListItemMenuItem menuItem in menuItems) {
       menuWidgets.add(ListTile(
         leading: SvgPicture.asset("assets/images/${menuItem.flowName}.svg", width: 30, height: 30),
-        title: const Text("Inter account transfer"),
+        title: Text(menuItem.label),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
           Flows.start(context, menuItem.flowName, configuration, service, sessionState.portfolio, sessionState.banks);

@@ -31,7 +31,7 @@ class _WidgetFormState extends State<WidgetForm> {
     for (var fieldTemplate in widget.fields) {
       var field = Field(fieldTemplate.key, fieldTemplate.source, fieldTemplate.label, null);
       if (fieldTemplate.required) {
-        field.addValidation(ValidationRequired(fieldTemplate.label));
+        field.addValidation(ValidationRequired("${fieldTemplate.label} is required."));
       }
       if (fieldTemplate.maxLength != null) {
         field.addValidation(ValidationCharacterLength(

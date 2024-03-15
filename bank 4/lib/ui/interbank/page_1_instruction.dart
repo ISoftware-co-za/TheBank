@@ -1,6 +1,6 @@
 import 'package:bank/ui/interbank/page_1_instruction_form.dart';
 import 'package:bank/ui/interbank/page_2_review.dart';
-import 'package:bank/ui/interbank/valueGeneratorBank.dart';
+import 'package:bank/ui/interbank/value_generator_bank.dart';
 import 'package:bank/ui/selector_name_value/list_item_name_value.dart';
 import 'package:flutter/material.dart';
 

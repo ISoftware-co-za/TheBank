@@ -1,11 +1,11 @@
 import 'package:bank/model/model.dart';
 import 'package:bank/ui-toolkit/ui_toolkit.dart' as ui_toolkit;
-import 'package:bank/ui/iFlowCustomisation.dart';
-import 'package:bank/ui/interbank/inter_bank_flow_data.dart';
+import 'package:bank/ui/i_flow_customisation.dart';
 import 'package:bank/ui/selector_name_value/list_item_name_value.dart';
 import 'package:flutter/material.dart';
 
 import '../ui-toolkit/ui_toolkit.dart';
+import 'interbank/inter_bank_flow_data.dart';
 import 'interbank/page_1_instruction_form.dart';
 import 'interbank/valueGeneratorBranch.dart';
 

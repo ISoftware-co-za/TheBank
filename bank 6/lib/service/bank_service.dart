@@ -6,21 +6,17 @@ import 'package:flutter/services.dart' show Uint8List, rootBundle;
 
 part "bank_service_interface.dart";
 
-const String countryCode = "BW";
-// const String countryCode = "ZM";
-// const String countryCode = "KE";
-
 class BankService implements IBankService {
 
   @override
   Future<Map<String, dynamic>> loadConfiguration() async {
-    String configurationFile = "assets/configuration_$countryCode.json";
+    String configurationFile = "assets/configuration.json";
     return await _readJSONFile(configurationFile);
   }
 
   @override
   Future<Map<String, dynamic>> login() async {
-    String response = "assets/responses/loginResponse_$countryCode.json";
+    String response = "assets/responses/loginResponse.json";
     return await _readJSONFile(response);
   }
 

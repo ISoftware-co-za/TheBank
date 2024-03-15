@@ -8,8 +8,8 @@ import 'package:bank/ui/selector_account/selector_account.dart';
 import 'package:bank/ui/selector_account/list_item_account.dart';
 import 'package:bank/ui/selector_name_value/list_item_name_value.dart';
 import 'package:bank/ui/selector_name_value/selector_name_value.dart';
-import 'package:bank/ui/interbank/valueGeneratorBank.dart';
-import 'package:bank/ui/interbank/valueGeneratorBranch.dart';
+import 'package:bank/ui/interbank/value_generator_bank.dart';
+import 'package:bank/ui/interbank/value_generator_branch.dart';
 
 import '../model/model.dart';
 

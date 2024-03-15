@@ -1,29 +1,27 @@
 import 'package:bank/model/model.dart';
 import 'package:bank/ui-toolkit/ui_toolkit.dart' as ui_toolkit;
-import 'package:bank/ui/iFlowCustomisation.dart';
+import 'package:bank/ui/i_flow_customisation.dart';
+import 'package:bank/ui/interbank/inter_bank_flow_data.dart';
 import 'package:bank/ui/selector_name_value/list_item_name_value.dart';
 import 'package:flutter/material.dart';
 
 import '../ui-toolkit/ui_toolkit.dart';
-import 'interbank/inter_bank_flow_data.dart';
 import 'interbank/page_1_instruction_form.dart';
-import 'interbank/valueGeneratorBranch.dart';
+import 'interbank/value_generator_branch.dart';
 
-class FlowCustomisationBW implements IFlowCustomisation {
+class FlowCustomisationKE implements IFlowCustomisation {
 
   @override
   void interAccountReferenceValidation(Field reference) {
-    reference.addValidation(ValidationRequired("Reference is required"));
     reference.addValidation(ValidationCharacterLength(
-        maximumCharacters: 20,
+        maximumCharacters: 24,
         maximumCharactersMessage:  "Reference is too long"));
   }
 
   @override
   void interbankReferenceValidation(Field reference) {
-    reference.addValidation(ValidationRequired("Reference is required"));
     reference.addValidation(ValidationCharacterLength(
-        maximumCharacters: 20, maximumCharactersMessage: "Reference is too long"));
+        maximumCharacters: 24, maximumCharactersMessage: "Reference is too long"));
   }
 
   @override

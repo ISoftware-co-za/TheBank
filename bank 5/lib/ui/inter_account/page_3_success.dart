@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'inter_account_flow_data.dart';
-
 class PageSuccess extends StatelessWidget {
   final String transactionIdentifier;
   const PageSuccess({required this.transactionIdentifier, super.key});

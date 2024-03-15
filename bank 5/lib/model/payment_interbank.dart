@@ -6,6 +6,7 @@ class PaymentInterbank {
 
   PaymentInterbank(IBankService service) : _service = service;
 
+  /*
   Future<void> start() async {
     List<Bank> banks = [];
     Map<String,dynamic> response = await _service.startOffUs();
@@ -25,6 +26,7 @@ class PaymentInterbank {
     }
     return null;
   }
+  */
 
   Future<String?> perform(String fromAccount, String toAccount, String? bankIdentifier, String? branchCode, String amount, String? reference) async {
     var service = BankService();
