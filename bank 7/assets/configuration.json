@@ -1,0 +1,51 @@
+{
+  "country" : "BW",
+  "banks" : [
+    {
+      "name" : "Access Bank",
+      "id": "30",
+      "branches" : [
+        {
+          "name" : "Gamecity",
+          "code" : "3012"
+        },
+        {
+          "name": "Fairgrounds",
+          "code": "3013"
+        }
+      ]
+    },
+    {
+      "name" : "FNB",
+      "id": "00",
+      "branches" : [
+        {
+          "name" : "Mall branch",
+          "code" : "0012"
+        },
+        {
+          "name" : "RMB",
+          "code" : "0018"
+        }
+      ]
+    },
+    {
+      "name" : "Standard Chartered",
+      "id": "20",
+      "branches" : [
+        {
+          "name" : "Mall branch",
+          "code" : "2012"
+        },
+        {
+          "name" : "Airport Junction",
+          "code" : "2013"
+        },
+        {
+          "name" : "Broadhurst Hemamo",
+          "code" : "2014"
+        }
+      ]
+    }
+  ]
+}
