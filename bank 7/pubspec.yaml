@@ -41,6 +41,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test: any
+  flutter_svg_test: any
   mockito: any
   build_runner: any
 

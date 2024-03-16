@@ -26,8 +26,8 @@ class WidgetMenu extends StatelessWidget {
   }
 
   List<Widget> _buildMenu(BuildContext context) {
-    Configuration configuration = ConfigurationProvider.of(context)!.configuration;
     IBankService service = BankServiceProvider.of(context)!.service;
+    Configuration configuration = ConfigurationProvider.of(context)!.configuration;
     SessionState sessionState = SessionStateProvider.of(context)!.state;
     List<Widget> menuWidgets = [];
 
