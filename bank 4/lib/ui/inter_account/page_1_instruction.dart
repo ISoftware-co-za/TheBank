@@ -72,25 +72,24 @@ class _PageInstructionState extends State<PageInstruction> {
   }
 
   void _setupForm(Configuration configuration) {
+    _form = ui_toolkit.Form();
 
     _fromAccount = ui_toolkit.Field("From account", null);
     _fromAccount.addValidation(ui_toolkit.ValidationRequired("From account is required"));
+    _form.add(_fromAccount);
 
     _toAccount = ui_toolkit.Field("To account", null);
     _toAccount.addValidation(ui_toolkit.ValidationRequired("To account is required"));
+    _form.add(_toAccount);
 
     _amount = ui_toolkit.Field("Amount", null);
     _amount.addValidation(ui_toolkit.ValidationRequired("Amount is required"));
+    _form.add(_amount);
 
     _reference = ui_toolkit.Field("Reference", null);
     widget.routeData.flowCustomisation.interAccountReferenceValidation(_reference);
-
-    _form = ui_toolkit.Form();
-    _form.add(_fromAccount);
-    _form.add(_toAccount);
-    _form.add(_amount);
     _form.add(_reference);
-  }
+}
 
   void _continue(BuildContext context) {
     _formKey.currentState!.validate();
