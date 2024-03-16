@@ -9,7 +9,7 @@ class InstructionForm {
   late final ui_toolkit.Form form;
   late final ui_toolkit.Field fromAccount;
   late final ui_toolkit.Field toBank;
-  late final ui_toolkit.Field toBranch;
+  ui_toolkit.Field? toBranch;
   late final ui_toolkit.Field toAccount;
   late final ui_toolkit.Field amount;
   late final ui_toolkit.Field reference;
@@ -29,8 +29,8 @@ class InstructionForm {
 
     if (configuration.isBW()) {
       toBranch = ui_toolkit.Field("Branch", null);
-      toBranch.addValidation(ui_toolkit.ValidationRequired("Branch is required"));
-      form.add(toBranch);
+      toBranch!.addValidation(ui_toolkit.ValidationRequired("Branch is required"));
+      form.add(toBranch!);
     }
 
     toAccount = ui_toolkit.Field("Account number", null);
@@ -44,16 +44,16 @@ class InstructionForm {
     reference = ui_toolkit.Field("Reference", null);
     if (configuration.isBW()) {
       reference.addValidation(ui_toolkit.ValidationRequired("Reference is required"));
-      reference.addValidation(ui_toolkit.ValidationCharacterLength(
-          maximumCharacters: 20, maximumCharactersMessage: "Reference is too long"));
+      reference.addValidation(ui_toolkit.ValidationCharacterLength(maximumCharacters: 20, maximumCharactersMessage: "Reference is too long"));
     } else if (configuration.isZM()) {
-      reference.addValidation(ui_toolkit.ValidationCharacterLength(
-          maximumCharacters: 15, maximumCharactersMessage: "Reference is too long"));
+      reference.addValidation(ui_toolkit.ValidationCharacterLength(maximumCharacters: 15, maximumCharactersMessage: "Reference is too long"));
     }
     form.add(reference);
   }
 
   void setBank(ListItemNameValue selectedBank) {
-      toBranch.value.value = null;
+    if (toBranch != null) {
+      toBranch!.value.value = null;
+    }
   }
 }

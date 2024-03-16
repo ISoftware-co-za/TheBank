@@ -76,7 +76,7 @@ class _PageInstructionState extends State<PageInstruction> {
         List<Branch>? branches = _form.payment.listBranches(_form.toBank.getValueAs<ListItemNameValue>().value);
         if (branches != null && branches.isNotEmpty) {
           children.add(ui_toolkit.WidgetNameValueSelection(
-              field: _form.toBranch, valuesGenerator: ValueGeneratorBranch(branches)));
+              field: _form.toBranch!, valuesGenerator: ValueGeneratorBranch(branches)));
           children.add(SizedBox(height: _sizeBoxHeight));
         }
       }
@@ -103,7 +103,7 @@ class _PageInstructionState extends State<PageInstruction> {
       widget.routeData.data = InterBankFlowData(
           _form.fromAccount.value.value!.toString(),
           _form.toBank.getValueAs<ListItemNameValue>(),
-          _form.toBranch.getValueAs<ListItemNameValue>(),
+          _form.toBranch?.getValueAs<ListItemNameValue>(),
           _form.toAccount.value.value!.toString(),
           _form.amount.value.value!.toString(),
           _form.reference.value.value?.toString());
