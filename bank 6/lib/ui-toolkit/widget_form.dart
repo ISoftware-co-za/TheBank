@@ -26,12 +26,12 @@ class _WidgetFormState extends State<WidgetForm> {
     for (var fieldTemplate in widget.fields) {
       var field = Field(fieldTemplate.key, fieldTemplate.source, fieldTemplate.label, "", fieldTemplate.valueList);
       if (fieldTemplate.required) {
-        field.addValidation(ValidationRequired(fieldTemplate.label));
+        field.addValidation(ValidationRequired(fieldTemplate.requiredMessage!));
       }
       if (fieldTemplate.maximumLength != null) {
         field.addValidation(ValidationCharacterLength(
             maximumCharacters: fieldTemplate.maximumLength,
-            maximumCharactersMessage: "The value must be ${fieldTemplate.maximumLength} characters or shorter."));
+            maximumCharactersMessage: fieldTemplate.maximumLengthMessage!));
       }
       widget.routeData.form.add(field);
     }
@@ -101,7 +101,7 @@ class _WidgetFormState extends State<WidgetForm> {
     if (bankField == null) {
       throw Exception("Cannot have a branch field, without having a bank field defined before it.");
     }
-    if (bankField.value.value != null) {
+    if (bankField.value.value != null && bankField.value.value != "")  {
       includeSizeBox = true;
       List<Branch>? branchesForBank = widget.routeData.banks.listBranchedForBank(bankField.getValueAs<ListItemNameValue>().value);
       if (branchesForBank == null) {
