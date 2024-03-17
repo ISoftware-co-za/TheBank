@@ -14,7 +14,7 @@ class FormX {
   bool validate() {
     bool isValid = true;
     for (var field in fields) {
-      isValid = field.validateValue();
+      isValid = isValid && field.validateValue();
     }
     return isValid;
   }

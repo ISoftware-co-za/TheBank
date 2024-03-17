@@ -8,7 +8,7 @@ class Form {
   bool validate() {
     bool isValid = true;
     for (var field in _fields) {
-      isValid = field.validateValue();
+      isValid = isValid && field.validateValue();
     }
     return isValid;
   }
