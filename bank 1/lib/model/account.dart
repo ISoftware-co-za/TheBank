@@ -7,8 +7,9 @@ class Account {
 
   Account(this.number, this.name, this.balance);
 
-  factory Account.fromJson(Map<String, dynamic> json) {
-    return Account(json["number"], json["name"], json["balance"]);
-  }
+  Account.fromJson(Map<String, dynamic> json)
+      : number = json['number'],
+        name = json['name'],
+        balance = json['balance'];
 }
 
