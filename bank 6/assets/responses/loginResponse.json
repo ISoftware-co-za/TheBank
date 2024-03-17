@@ -111,6 +111,107 @@
           "maximumLengthMessage": "Reference should be less than 15 characters."
         }
       ]
+    },
+    {
+      "label": "International",
+      "icon": "international.svg",
+      "flowName": "International",
+      "formItems": [
+        {
+          "key": "FA",
+          "source": "accounts",
+          "label": "From account",
+          "required": true,
+          "requiredMessage": "Please select from account.",
+          "maximumLength": null,
+          "maximumLengthMessage": null
+        },
+        {
+          "key": "IBAN",
+          "source": "entered",
+          "label": "IBAN",
+          "required": true,
+          "requiredMessage": "Please international bank account number.",
+          "maximumLength": null,
+          "maximumLengthMessage": null
+        },
+        {
+          "key": "AMT",
+          "source": "entered",
+          "label": "Amount",
+          "required": true,
+          "requiredMessage": "Please enter amount.",
+          "maximumLength": null,
+          "maximumLengthMessage": null
+        },
+        {
+          "key": "FEE",
+          "source": "listed",
+          "label": "Fees",
+          "required": true,
+          "requiredMessage": "Please select who pays the fees.",
+          "maximumLength": null,
+          "maximumLengthMessage": null,
+          "valueList": [
+            {
+              "key": "BEN",
+              "value": "Beneficiary"
+            },
+            {
+              "key": "YOU",
+              "value": "You"
+            },
+            {
+              "key": "BOTH",
+              "value": "Shared"
+            }
+          ]
+        },
+        {
+          "key": "RES",
+          "source": "listed",
+          "label": "Payment reason",
+          "required": true,
+          "requiredMessage": "Please select payment reason.",
+          "maximumLength": null,
+          "maximumLengthMessage": null,
+          "valueList": [
+            {
+              "key": "INV",
+              "value": "Invoice Payment"
+            },
+            {
+              "key": "SAL",
+              "value": "Salary Payment"
+            },
+            {
+              "key": "REN",
+              "value": "Rent Payment"
+            },
+            {
+              "key": "EDU",
+              "value": "Education Fees"
+            },
+            {
+              "key": "MED",
+              "value": "Medical Expenses"
+            },
+            {
+              "key": "OTH",
+              "value": "Other"
+            }
+          ]
+        },
+        {
+          "key": "REF",
+          "source": "entered",
+          "label": "Reference",
+          "required": true,
+          "requiredMessage": "Please enter reference.",
+          "maximumLength": 25,
+          "maximumLengthMessage": "Reference should be less than 25 characters."
+        }
+      ]
     }
   ]
 }

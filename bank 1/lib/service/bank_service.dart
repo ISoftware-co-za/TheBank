@@ -3,7 +3,6 @@ library bank_service;
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart' show Uint8List, rootBundle;
-import 'package:mockito/annotations.dart';
 
 part "bank_service_interface.dart";
 
