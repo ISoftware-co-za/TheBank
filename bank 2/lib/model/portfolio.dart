@@ -4,7 +4,6 @@ class Portfolio {
 
   Portfolio(IBankService service) : _service = service;
 
-  // Generate tests for this method
   Future<List<Account>> listAccounts() async {
     Map<String, dynamic> response = await _service.listAccounts();
     List<Account> accounts = [];
