@@ -9,9 +9,9 @@ class Bank {
 
   @visibleForTesting
   factory Bank.fromJson(Map<String, dynamic> json) {
-    List<Branch>? branches;
-    if (json["branches"]!= null) {
-      branches = (json["branches"] as List).map((branch) => Branch.fromJson(branch)).toList();
+    List<Branch> branches = [];
+    if (json["branches"] != null) {
+      (json["branches"] as List).map((branch) => Branch.fromJson(branch)).toList();
     }
     return Bank(json["name"], json["id"], branches);
   }
