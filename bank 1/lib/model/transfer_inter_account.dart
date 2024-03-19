@@ -6,9 +6,8 @@ class TransferInterAccount {
       String fromAccount,
       String toAccount,
       String amount,
-      String? reference,
-      IBankService service) async {
-
+      String? reference) async {
+    var service = BankService();
     return await service.performTransaction(
         fromAccount,
         toAccount,
