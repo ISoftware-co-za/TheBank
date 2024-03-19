@@ -6,6 +6,8 @@ class Account {
   final double balance;
 
   Account(this.number, this.name, this.balance);
-  }
+
+  
+
 }
 
