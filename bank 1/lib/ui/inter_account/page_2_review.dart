@@ -92,6 +92,7 @@ class _PageReviewState extends State<PageReview> {
             widget.routeData.data!.fromAccountNumber,
             widget.routeData.data!.toAccountNumber,
             widget.routeData.data!.amount,
-            widget.routeData.data!.reference);
+            widget.routeData.data!.reference,
+            widget.routeData.service);
   }
 }
